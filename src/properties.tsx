@@ -10,6 +10,7 @@ import {
   Box,
 } from "@mui/material";
 import { styled } from "@mui/system";
+import Slider from "react-slick";
 
 import home from "../src/assets/image/home.jpg";
 import home2 from "../src/assets/image/images.webp";
@@ -31,8 +32,8 @@ const properties = [
     currency: "MAD",
     beds: 7,
     baths: 5,
-    area: "1700 m²",
-    image: home,
+    area: "1700 m2",
+    image: [home, home2],
   },
   {
     id: 2,
@@ -43,8 +44,8 @@ const properties = [
     currency: "MAD",
     beds: 7,
     baths: 5,
-    area: "1700 m²",
-    image: home,
+    area: "1700 m2",
+    image: [home, home2],
   },
   {
     id: 3,
@@ -55,8 +56,8 @@ const properties = [
     currency: "MAD/mois",
     beds: 4,
     baths: 3,
-    area: "310 m²",
-    image: home2,
+    area: "310 m2",
+    image: [home, home2],
   },
   {
     id: 4,
@@ -66,8 +67,8 @@ const properties = [
     currency: "MAD/mois",
     beds: 4,
     baths: 2,
-    area: "380 m²",
-    image: home2,
+    area: "380 m2",
+    image: [home, home2],
   },
   {
     id: 5,
@@ -77,8 +78,8 @@ const properties = [
     currency: "MAD/mois",
     beds: 2,
     baths: 1,
-    area: "350 m²",
-    image: home2,
+    area: "350 m2",
+    image: [home, home2],
   },
   {
     id: 6,
@@ -88,12 +89,20 @@ const properties = [
     currency: "MAD/mois",
     beds: 3,
     baths: 2,
-    area: "190 m²",
-    image: home,
+    area: "190 m2",
+    image: [home, home2],
   },
 ];
 
 function PropertiesPage() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+  };
   return (
     <>
       <Grid container spacing={3}>
@@ -137,8 +146,23 @@ function PropertiesPage() {
                 }}
               >
                 <Box sx={Style.Box.Arrow}>
-                  <ArrowBackIosNewIcon sx={Style.ArrowIcone} />
-                  <ArrowForwardIosIcon sx={Style.ArrowIcone} />
+                  {/* <ArrowBackIosNewIcon sx={Style.ArrowIcone} />
+                  <ArrowForwardIosIcon sx={Style.ArrowIcone} /> */}
+                  <Slider {...settings}>
+                    {property.image.map((img: any, index: any) => (
+                      <Box
+                        key={index}
+                        component="img"
+                        src={img}
+                        sx={{
+                          width: "100%",
+                          height: 300,
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                        }}
+                      />
+                    ))}
+                  </Slider>
                 </Box>
 
                 <Box sx={Style.Box.Chip}>
@@ -158,10 +182,10 @@ function PropertiesPage() {
                         property.type === "For Sale" ? "#EF855C" : "#222222",
                       borderRadius: "4px",
                       fontWeight: 500,
-                      fontSize: "12px",
+                      fontSize: "10px",
                       padding: "0px 1px",
                       textTransform: "uppercase",
-                      height: "20px",
+                      height: "18px",
                       minWidth: "auto",
                     }}
                   />
@@ -176,7 +200,7 @@ function PropertiesPage() {
                     {property.title}
                   </Typography>
                   <Box sx={Style.Box.Price}>
-                    <Typography variant="subtitle1" fontWeight="bold">
+                    <Typography variant="subtitle1">
                       {property.price}
                     </Typography>
                     <Typography variant="subtitle2">
